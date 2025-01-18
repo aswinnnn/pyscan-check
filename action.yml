@@ -67,21 +67,16 @@ runs:
           --output "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
         
         SCAN_EXIT_CODE=${PIPESTATUS[0]}
-        
-        # Store results in step outputs
-        {
-          echo "scan-result<<EOF"
-          cat "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
-          echo "EOF"
-          echo "exit-code=$SCAN_EXIT_CODE"
-        } >> $GITHUB_OUTPUT
-        
+    - name: Upload Artifacts
+      shell: bash
+      run: |
         # Upload artifact if requested
         if [ "${{ inputs.upload-artifact }}" = "true" ]; then
           echo "Uploading scan results as artifact..."
-          gh extension install actions/gh-actions-artifact
-          gh actions-artifact upload --name "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
+      uses: actions/upload-artifact@v3
+      with:
+        name: "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
+        path: "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
         fi
         
-        exit $SCAN_EXIT_CODE
 
