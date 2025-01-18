@@ -67,16 +67,17 @@ runs:
           --output "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
         
         SCAN_EXIT_CODE=${PIPESTATUS[0]}
-    - name: Upload Artifacts
+    - name: Upload Artifacts Check
       shell: bash
       run: |
         # Upload artifact if requested
-        if [ "${{ inputs.upload-artifact }}" = "true" ]; then
-          echo "Uploading scan results as artifact..."
+        if [ "${{ inputs.upload-artifact }}" = "false" ]; then
+          echo "NOT uploading scan results as artifact..."
+          exit 0
+        fi
+    - name: Upload Artifacts
       uses: actions/upload-artifact@v3
       with:
         name: "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
         path: "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
-        fi
-        
 
