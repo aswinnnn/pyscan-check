@@ -18,7 +18,7 @@ inputs:
   output-format:
     description: 'Output format for scan results, defaulting to formatted text (.txt, .json)'
     required: false
-    default: 'text'
+    default: 'txt'
   
   upload-artifact:
     description: 'Whether to upload scan results as an artifact'
