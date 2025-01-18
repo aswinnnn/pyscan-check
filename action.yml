@@ -1,0 +1,77 @@
+name: 'pyscan'
+description: |
+  Finds security vulnerabilities in your Python dependencies.
+  Supports json output and optional artifact upload.
+
+author: 'Aswin (aswinnnn)'
+
+# Marketplace appearance
+branding:
+  icon: 'shield'      # Shown as the logo in the marketplace
+  color: 'green'
+
+inputs:
+  path:
+    description: 'Directory to scan for vulnerabilities, defaults to current (incase the requirements.txt, pyproject.toml,etc is in a deeper path)'
+    required: false
+    default: '.'
+  
+  output-format:
+    description: 'Output format for scan results, defaulting to formatted text (.txt, .json)'
+    required: false
+    default: 'text'
+  
+  upload-artifact:
+    description: 'Whether to upload scan results as an artifact'
+    required: false
+    default: 'false'
+  
+  artifact-name:
+    description: 'Name of the uploaded artifact (without the extension)'
+    required: false
+    default: 'pyscan-results'
+
+outputs:
+  scan-result:
+    description: 'Optional output file (txt,json) from the scan'
+  exit-code:
+    description: 'Exit code from pyscan (0 = no issues found)'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python
+      uses: actions/setup-python@3.1.4
+    - name: Install Pyscan
+      shell: bash
+      run: |
+        echo "Installing pyscan..."
+        pip install pyscan
+
+    - name: Run Scan
+      shell: bash
+      run: |
+        echo "Starting security scan..."
+        pyscan \
+          --dir "${{ inputs.path }}" \
+          --output "${{ inputs.artifact-name }}.${{ inputs.output-format }}" "
+        
+        SCAN_EXIT_CODE=${PIPESTATUS[0]}
+        
+        # Store results in step outputs
+        {
+          echo "scan-result<<EOF"
+          cat "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
+          echo "EOF"
+          echo "exit-code=$SCAN_EXIT_CODE"
+        } >> $GITHUB_OUTPUT
+        
+        # Upload artifact if requested
+        if [ "${{ inputs.upload-artifact }}" = "true" ]; then
+          echo "Uploading scan results as artifact..."
+          gh extension install actions/gh-actions-artifact
+          gh actions-artifact upload --name "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
+        fi
+        
+        # Exit with PyScan's status code
+        exit $SCAN_EXIT_CODE
