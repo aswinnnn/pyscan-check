@@ -69,7 +69,7 @@ runs:
         SCAN_EXIT_CODE=${PIPESTATUS[0]}
 
     - name: Upload Artifacts
-      if: ${{inputs.upload-artifact == "true"}}
+      if: inputs.upload-artifact == 'true'
       uses: actions/upload-artifact@v3
       with:
         name: "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
