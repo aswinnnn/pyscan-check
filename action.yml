@@ -6,7 +6,7 @@ author: 'Aswin (aswinnnn)'
 
 # Marketplace appearance
 branding:
-  icon: 'shield'      # Shown as the logo in the marketplace
+  icon: 'shield'
   color: 'green'
 
 inputs:
@@ -53,13 +53,13 @@ runs:
         echo "Starting security scan..."
         pyscan \
           --dir "${{ inputs.path }}" \
-          --output "${{ inputs.artifact-name }}.${{ inputs.output-format }}" "
+          --output "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
         
         SCAN_EXIT_CODE=${PIPESTATUS[0]}
         
         # Store results in step outputs
         {
-          echo "scan-result<<EOF "
+          echo "scan-result<<EOF"
           cat "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
           echo "EOF"
           echo "exit-code=$SCAN_EXIT_CODE"
@@ -73,3 +73,4 @@ runs:
         fi
         
         exit $SCAN_EXIT_CODE
+
