@@ -1,7 +1,6 @@
 name: 'pyscan'
 description: |
   Finds security vulnerabilities in your Python dependencies.
-  Supports json output and optional artifact upload.
 
 author: 'Aswin (aswinnnn)'
 
@@ -41,7 +40,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup Python
-      uses: actions/setup-python@3.1.4
+      uses: actions/setup-python@v3.1.4
     - name: Install Pyscan
       shell: bash
       run: |
@@ -73,5 +72,4 @@ runs:
           gh actions-artifact upload --name "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
         fi
         
-        # Exit with PyScan's status code
         exit $SCAN_EXIT_CODE
