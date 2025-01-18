@@ -39,8 +39,12 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+
     - name: Setup Python
       uses: actions/setup-python@v3.1.4
+
     - name: Install Pyscan
       shell: bash
       run: |
