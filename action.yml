@@ -48,6 +48,7 @@ runs:
         pip install pyscan-rs
 
     - name: Debug Repository
+      shell: bash
       run: |
         echo "Current directory: $(pwd)"
         echo "Listing files in ${{ inputs.path }}:"
