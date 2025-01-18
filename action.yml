@@ -47,6 +47,12 @@ runs:
         echo "Installing pyscan..."
         pip install pyscan-rs
 
+    - name: Debug Repository
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Listing files in ${{ inputs.path }}:"
+        ls -R ${{ inputs.path }}
+
     - name: Run Scan
       shell: bash
       run: |
