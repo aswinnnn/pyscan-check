@@ -59,7 +59,7 @@ runs:
         
         # Store results in step outputs
         {
-          echo "scan-result<<EOF"
+          echo "scan-result<<EOF "
           cat "${{ inputs.artifact-name }}.${{ inputs.output-format }}"
           echo "EOF"
           echo "exit-code=$SCAN_EXIT_CODE"
