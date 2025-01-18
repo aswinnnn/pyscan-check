@@ -45,7 +45,7 @@ runs:
       shell: bash
       run: |
         echo "Installing pyscan..."
-        pip install pyscan
+        pip install pyscan-rs
 
     - name: Run Scan
       shell: bash
