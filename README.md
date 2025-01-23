@@ -17,7 +17,7 @@ Create `.github/workflows/pyscan.yml`
 
 Paste this in there:
 ```yaml
-name: Pyscan dependency scan
+name: Pyscan
 
 on: push
 jobs:
@@ -25,7 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pyscan 
-        uses: aswinnnnn/pyscan@1.0.0
+        uses: aswinnnn/pyscan-check@v1.0.0
+        with:
+          upload-artifact: true
 ```
 
 ## Options
@@ -33,8 +35,8 @@ jobs:
 | Option              | Description | Required | Default |
 | --------             | ------- | -------- | ------- | 
 | `path`               |Directory to scan for vulnerabilities, defaults to current (incase the requirements.txt, pyproject.toml,etc is in a deeper path)         |  false  | .        |
-| `output-format`      |Output format for scan results uploaded as artifact (currently only json)         | false         |   json      |
 | `upload-artifact`    | Whether to upload scan results as an artifact |  false       |     false  |
+| `output-format`      |Output format for scan results uploaded as artifact (currently only json)         | false         |   json      |
 | `artifact-name`      | Name of the uploaded artifact (without the extension)        |      false    |    `pyscan-results`     |
 
 `output-format` only applies to the saved output file, pyscan will display readable and pretty good text and summary in the logs/console
