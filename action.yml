@@ -16,9 +16,9 @@ inputs:
     default: '.'
   
   output-format:
-    description: 'Output format for scan results, defaulting to formatted text (.txt, .json)'
+    description: 'Output format for scan results uploaded as artifact (currently only json)'
     required: false
-    default: 'txt'
+    default: 'json'
   
   upload-artifact:
     description: 'Whether to upload scan results as an artifact'
@@ -32,7 +32,7 @@ inputs:
 
 outputs:
   scan-result:
-    description: 'Optional output file (txt,json) from the scan'
+    description: 'Optional output file (json) from the scan'
   exit-code:
     description: 'Exit code from pyscan (0 = no issues found)'
 
