@@ -3,7 +3,7 @@
 <center><img src="https://i.imgur.com/wxD7uTN.png" height="auto" width="auto"></center>
 
 
-Pyscan is a CLI tool that finds dependencies in your Python project and reports any security vulnerability found. This action integrates it to your CLI to automatically find vulns and reporting them.
+Pyscan is a CLI tool that finds dependencies in your Python project and reports any security vulnerability found. This action integrates it to your CI to automatically find vulns and reporting them.
 
 - It uses [osv.dev](https://osv.dev/) as its advisory (its open source and free).
 - Pyscan can find dependencies from requirements, pyproject, setup.py and even straight from the source code. supports poetry, filt, hatch, pdm, etc
